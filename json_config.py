@@ -1,6 +1,7 @@
 import json
 import data
 
+#save students_database list in db.json
 def save_json():
     try:
         with open('db.json', "w") as file:
@@ -9,6 +10,7 @@ def save_json():
     except:
         return False
 
+#import students_database list from db.json
 def import_json():
     try:
         with open('db.json', "r") as file:

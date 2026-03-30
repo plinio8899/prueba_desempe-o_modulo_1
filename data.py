@@ -1,3 +1,4 @@
+#database schema
 student_database = [
     {
         "id" : 0,
@@ -8,11 +9,15 @@ student_database = [
     }
 ]
 
+#register user in the schema
 def register_student(name, age, program, status):
     try:
+        #create a secuencial id
         student_id = len(student_database)
+        #verify id
         for i in student_database:
             idd = i.get("id")
+            #change the id if it already exists
             if idd == student_id:
                 student_id = student_id + 1
         student_array = {
@@ -22,15 +27,17 @@ def register_student(name, age, program, status):
             "program" : program,
             "status" : status 
         }
-
+        #add on database
         student_database.append(student_array)
         return True
     except:
         print("[x] error to register student")
         return False
 
+#list students function
 def list_students():
     try:
+        #ff only the example item is present, it is treated as empty.
         if len(student_database) == 1:
             print("[x] The database is empty.")
         else:
@@ -43,6 +50,7 @@ def list_students():
     except:
         print("[x] error to list students")
 
+#search function: Use `view` to decide whether to display the result in the console and use key and student to reference key and value
 def search_student(key, student_info, view=True):
     search_list = []
     try:

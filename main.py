@@ -4,9 +4,18 @@ import data
 import json_config
 
 
+"""
+The os library is used to limit the console with its system function, 
+and the time library to give realism to the processes, making them take seconds to complete. 
+This file contains the logic for each of the options in the main menu.
+"""
+
+
+
+# init function: to start app
 def init():
     inter = True
-
+    #loop for main menu
     while inter:
         os.system("clear")
         print("----------student management----------")
@@ -22,6 +31,7 @@ def init():
         try:
             option = int(input("select option -> "))
 
+            #option1: register
             if option == 1:
                 inter_register = True
                 while inter_register:
@@ -53,10 +63,12 @@ def init():
                         os.system("clear")
                         print("[x] Error: invalid data")
                         time.sleep(1)
+            #option2: list students
             elif option == 2:
                 os.system("clear")
                 data.list_students()
                 input("\npress enter to continue...")
+            #option3: search student
             elif option == 3:
                 inter_search = True
                 while inter_search:
@@ -113,6 +125,7 @@ def init():
                         inter_search = False
                     else:
                         print("[x] Error: invalid option")
+            #option4: update student
             elif option == 4:
                 try:
                     student_id = int(input("insert student ID -> "))
@@ -156,6 +169,7 @@ def init():
                             time.sleep(1)
                 except:
                     print("[x] Error to update")
+            #option5: delete student
             elif option == 5:
                 inter_delete = True
                 while inter_delete:
@@ -184,6 +198,8 @@ def init():
             print("[x] choice a valid option")
             time.sleep(1)
 
+#import data from db.json
 json_data = json_config.import_json()
+#save data to student_database list
 data.student_database = json_data
 init()
