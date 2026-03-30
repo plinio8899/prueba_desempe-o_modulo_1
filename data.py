@@ -1,6 +1,6 @@
 student_database = [
     {
-        "id" : 1,
+        "id" : 0,
         "name" : "example_name",
         "age" : 6,
         "program" : "example_program",
@@ -11,6 +11,10 @@ student_database = [
 def register_student(name, age, program, status):
     try:
         student_id = len(student_database)
+        for i in student_database:
+            idd = i.get("id")
+            if idd == student_id:
+                student_id = student_id + 1
         student_array = {
             "id" : student_id,
             "name" : name, 
