@@ -62,6 +62,7 @@ while inter:
                 print("3. Age")
                 print("4. Program")
                 print("5. Status")
+                print("6. back")
                 option_search = int(input("Choice option -> "))
                 if option_search == 1:
                     try:
@@ -103,14 +104,65 @@ while inter:
                         input("Press enter to continue")
                     except:
                         print("[x] Error: invalid status")
+                elif option_search == 6:
+                    inter_search = False
                 else:
                     print("[x] Error: invalid option")
         elif option == 4:
-            print("update")
-            time.sleep(1)
+            try:
+                student_id = int(input("insert student ID -> "))
+                inter_update = True
+                while inter_update:
+                    os.system("clear")
+                    try:
+                        data.search_student(1, student_id)
+                        print("")
+                        name = input("Insert full name (str) -> ")
+                        age = int(input("Insert age (int) -> "))
+                        program = input("Insert program name -> ")
+                        status = int(input("Choice status (active = 0, inactive = 1 (please insert a int)) -> "))
+
+                        values = {
+                            "name" : name,
+                            "age" : age,
+                            "program" : program,
+                            "status" : status
+                        }
+
+                        if status != 0 and status != 1:
+                            status = "inactive"
+                            reg = data.update_student(student_id, values)
+                            os.system("clear")
+                            print("[?] The assigned state does not exist, we will assign the default inactive state.")
+                            time.sleep(1)
+                        else:
+                            status = "active"
+                            reg = data.update_student(student_id, values)
+
+                        if not reg:
+                            os.system("clear")
+                            print("[x] Error to update student in the database")
+                            time.sleep(1)
+                        inter_update = False
+
+                    except:
+                        os.system("clear")
+                        print("[x] Error: invalid data")
+                        time.sleep(1)
+            except:
+                print("[x] Error to update")
         elif option == 5:
-            print("delete")
-            time.sleep(1)
+            inter_delete = True
+            while inter_delete:
+                try:
+                    student_id = int(input("insert student ID -> "))
+                    data.delete_student(student_id)
+                    os.system("clear")
+                    print("[+] student deleted")
+                    time.sleep(1)
+                    inter_delete = False
+                except:
+                    print("[x] invalid ID")
         elif option == 6:
             inter = False
         else:

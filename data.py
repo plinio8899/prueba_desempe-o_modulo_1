@@ -39,7 +39,7 @@ def list_students():
     except:
         print("[x] error to list students")
 
-def search_student(key, student_info):
+def search_student(key, student_info, view=True):
     search_list = []
     try:
         if key == 1:
@@ -67,13 +67,37 @@ def search_student(key, student_info):
                 name = item.get("status")
                 if name == student_info:
                     search_list.append(item)
-                    
-        print("----------Students list----------")          
-        for i in search_list:
-            if i.get("name") == "example_name":
-                pass
-            else:
-                print(f"\nID: {i.get("id")} \nName: {i.get("name")} \nAge: {i.get("age")} \nProgram: {i.get("program")} \nStatus: {i.get("status")}")
+        if view:
+            print("----------Students list----------")          
+            for i in search_list:
+                if i.get("name") == "example_name":
+                    pass
+                else:
+                    print(f"\nID: {i.get("id")} \nName: {i.get("name")} \nAge: {i.get("age")} \nProgram: {i.get("program")} \nStatus: {i.get("status")}")
+        else:
+            return search_list
         
     except:
         print("[x] Error to search students")
+
+
+def update_student(id, values):
+    try:
+        student = search_student(1, id, False)
+        student_id = student[0].get("id")
+        student_database[student_id]["name"] = values["name"]
+        student_database[student_id]["age"] = values["age"]
+        student_database[student_id]["program"] = values["program"]
+        student_database[student_id]["status"] = values["status"]
+        return True
+    except:
+        print("[x] invalid data: error to update datebase")
+
+
+def delete_student(id):
+    try:
+        student = search_student(1, id, False)
+        student_id = student[0].get("id")    
+        student_database.pop(student_id)
+    except:
+        print("[x] invalid data: error to delete student")
